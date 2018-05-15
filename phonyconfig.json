@@ -1,0 +1,13 @@
+[
+  {
+    "path": "/phony",
+    "method": "GET",
+    "status": 200,
+    "data": {"version": "0.1.0", "repository": "https://github.com/cgons/phony"}
+  },
+  {
+    "path": "/test-route",
+    "method": "GET",
+    "data": {"status": "OK"}
+  }
+]
