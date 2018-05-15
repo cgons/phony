@@ -31,11 +31,18 @@ func ServeRoutes(routes []Route, port int) {
 		log.Printf("Request: %s -> %s", r.Method, r.URL)
 
 		// Match incoming request
-		matchedRoute := matchRequestToRoutes(r, routes)
+		matchedRoute, err := matchRequestToRoutes(r, routes)
 
-		// Serve JSON response
-		w.WriteHeader(matchedRoute["status"].(int))
-		json.NewEncoder(w).Encode(matchedRoute["data"])
+		if err != nil {
+			switch err {
+			case NoConfigMatchFoundError:
+				w.WriteHeader(404)
+			}
+		} else {
+			// Serve JSON response
+			w.WriteHeader(matchedRoute["status"].(int))
+			json.NewEncoder(w).Encode(matchedRoute["data"])
+		}
 
 	})
 
@@ -45,7 +52,8 @@ func ServeRoutes(routes []Route, port int) {
 	log.Fatal(http.ListenAndServe(address, nil))
 }
 
-func matchRequestToRoutes(r *http.Request, routes []Route) MatchedRoute {
+func matchRequestToRoutes(r *http.Request, routes []Route) (MatchedRoute, error) {
+	var err error
 	response := make(MatchedRoute)
 
 	// Loop over all routes and determine if incoming URL path and http method
@@ -58,5 +66,10 @@ func matchRequestToRoutes(r *http.Request, routes []Route) MatchedRoute {
 			response["data"] = route.Data
 		}
 	}
-	return response
+
+	if len(response) == 0 {
+		err = NoConfigMatchFoundError
+	}
+
+	return response, err
 }
