@@ -49,3 +49,9 @@ Phony will also log all requests made to it...
 ```
 
 When Phony receives a request for a route not defined in `phonyconfig.json`, a 404 response is returned.
+
+## Upcoming Features
+- [ ] Ability to apped a `?delay=3` query param to a request URL to mimic a slow response
+- [ ] Ability to add a `delay` parameter to config to mimic a slow response
+- [ ] A `/files/<pdf|xls|xlxs|txt|doc|docx>` route to serve empty files of PDF, Excel (xls, xlsx), Text and Word
+- [ ] Unit tests
