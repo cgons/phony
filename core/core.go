@@ -1,4 +1,4 @@
-package phony
+package core
 
 func Init() {
 	var configPath string // config path

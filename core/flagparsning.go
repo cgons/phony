@@ -1,4 +1,4 @@
-package phony
+package core
 
 import (
 	"flag"
@@ -29,11 +29,11 @@ PHONY -- A simple JSON server for serving predefined json responses.
 --------------------------------------------------------------------
 
 USAGE:
-    phony [options]
+    core [options]
 
 OPTIONS:
     --help:     Show usage and documentation.
-    --config:   Path to phony config file (phonyconfig.json).
+    --config:   Path to core config file (phonyconfig.json).
     --port:     Network port on which to run Phony server.
 `)
 }

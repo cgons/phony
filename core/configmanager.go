@@ -1,4 +1,4 @@
-package phony
+package core
 
 import (
 	"encoding/json"
@@ -7,7 +7,6 @@ import (
 	"os"
 	"path/filepath"
 )
-
 
 // ParseConfig loads and parses a config file specified (absolute path)
 func ParseConfig(configPath string) []Route {

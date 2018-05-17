@@ -1,4 +1,4 @@
-package phony
+package core
 
 import (
 	"encoding/json"
