@@ -42,9 +42,11 @@ func GetConfigPath(path string) string {
 // GetWorkingDir returns the absolute path to the current working dir.
 // (ie. the dir from which this executable was run).
 func GetWorkingDir() string {
-	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	path, err := os.Executable()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	dir := filepath.Dir(path)
 	return dir
 }
