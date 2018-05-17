@@ -27,6 +27,8 @@ Run the Phony CLI:
 2018/05/15 14:00:33 -------------------------------------------------
 ```
 Hit the URL defined in the config file to receive a response from Phony.
+
+_(Note: Phony will attempt to look for a config file named `phonyconfig.json` in the current working directory. Alternatively, you may specify the path to a config file with the `--config` flag.)_
 ```bash
 http GET localhost:9191/phony
 
@@ -38,7 +40,7 @@ Date: Tue, 15 May 2018 18:00:59 GMT
 
 {
     "repository": "https://github.com/cgons/phony",
-    "version": "0.1.0"
+    "version": "x.x.x"
 }
 ```
 
@@ -51,7 +53,7 @@ Phony will also log all requests made to it...
 When Phony receives a request for a route not defined in `phonyconfig.json`, a 404 response is returned.
 
 ## Upcoming Features
-- [ ] Ability to apped a `?delay=3` query param to a request URL to mimic a slow response
-- [ ] Ability to add a `delay` parameter to config to mimic a slow response
-- [ ] A `/files/<pdf|xls|xlxs|txt|doc|docx>` route to serve empty files of PDF, Excel (xls, xlsx), Text and Word
-- [ ] Unit tests
+- [ ] Ability to apped a `?delay=3` query param to a request URL to mimic a slow response.
+- [ ] Ability to add a `delay` parameter to config to mimic a slow response.
+- [ ] A `/files/<pdf|xls|xlxs|txt|doc|docx>` route to serve empty files of PDF, Excel (xls, xlsx), Text and Word (doc, docx).
+- [ ] Unit tests for Phony codebase.
