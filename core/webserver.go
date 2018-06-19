@@ -29,6 +29,15 @@ func ServeRoutes(routes []Route, port int) {
 			return
 		}
 
+		// Handle OPTIONS requests...
+		if r.Method == "OPTIONS" {
+			requestHeaders := r.Header["Access-Control-Request-Headers"]
+			w.Header().Set("Allow", "GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH")
+			w.Header().Set("Access-Control-Allow-Origin", "*")
+			w.Header().Set("Access-Control-Allow-Headers", strings.Join(requestHeaders, ","))
+			return
+		}
+
 		// ---------------------
 
 		// Set response headers
