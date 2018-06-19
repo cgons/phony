@@ -17,18 +17,23 @@ func ServeRoutes(routes []Route, port int) {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
+		// Log request
+		log.Printf("Request: %s -> %s", r.Method, r.URL)
+
+		// Handle special cases:
+		// ---------------------
+
 		// Handle Favicon requests...
 		if r.URL.Path == "/favicon.ico" {
 			w.Header().Set("Content-Type", "image/x-icon")
 			return
 		}
 
+		// ---------------------
+
 		// Set response headers
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
-
-		// Log request
-		log.Printf("Request: %s -> %s", r.Method, r.URL)
 
 		// Match incoming request
 		matchedRoute, err := matchRequestToRoutes(r, routes)
