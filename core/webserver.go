@@ -66,24 +66,36 @@ func ServeRoutes(routes []Route, port int) {
 	log.Fatal(http.ListenAndServe(address, nil))
 }
 
-func matchRequestToRoutes(r *http.Request, routes []Route) (MatchedRoute, error) {
+// Match the path string of the incoming URL against that of a stored Route.
+func MatchPath(requestPath string, routePath string) bool {
+	return requestPath == routePath
+}
+
+// Match the (http) method of a incoming request against that of a stored Route.
+func MatchMethod(requestMethod string, routeMethod string) bool {
+	return req.Method == strings.ToUpper(route.Method)
+}
+
+func matchRequestToRoutes(req *http.Request, routes []Route) (MatchedRoute, error) {
 	var err error
-	response := make(MatchedRoute)
+	matchedRoute := make(MatchedRoute)
 
 	// Loop over all routes and determine if incoming URL path and http method
 	// matches a path + method combination specified in a route.
 	for _, route := range routes {
-		pathMatches := r.URL.Path == route.Path
-		methodMatches := r.Method == strings.ToUpper(route.Method)
+		pathMatches := MatchPath(req.URL.Path, route.Path)
+		methodMatches := MatchMethod(req, route)
 		if pathMatches && methodMatches {
-			response["status"] = route.GetStatus()
-			response["data"] = route.Data
+			matchedRoute["status"] = route.GetStatus()
+			matchedRoute["data"] = route.Data
 		}
 	}
 
-	if len(response) == 0 {
+	// len(<map>) - give us the number of keys specified on the map.
+	// If it's zero, then we know the map is empty...
+	if len(matchedRoute) == 0 {
 		err = NoConfigMatchFoundError
 	}
 
-	return response, err
+	return matchedRoute, err
 }
