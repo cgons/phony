@@ -34,6 +34,7 @@ func ServeRoutes(routes []Route, port int) {
 			requestHeaders := r.Header["Access-Control-Request-Headers"]
 			w.Header().Set("Allow", "GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH")
 			w.Header().Set("Access-Control-Allow-Origin", "*")
+			w.Header().Set("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, OPTIONS, PATCH")
 			w.Header().Set("Access-Control-Allow-Headers", strings.Join(requestHeaders, ","))
 			return
 		}
